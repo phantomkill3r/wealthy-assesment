@@ -30,10 +30,17 @@ def extract(filepath):
                     mindate = cur_date
                 if cur_date > maxdate:
                     maxdate = cur_date
+    return mindate, maxdate
 
     # Add missing dates to dict to simplify search
     cur_date = mindate
-    while cur_date < maxdate:
+    prev_stocks = {}
+    while cur_date <= maxdate:
         if cur_date not in stocks:
-            stocks[cur_date] = {}
+            stocks[cur_date] = prev_stocks
+        else:
+            for key, val in stocks[cur_date].iteritems():
+                prev_stocks[key] = val
+            for key, val in prev_stocks.iteritems():
+                stocks[cur_date][key] = val
         cur_date += plus_one

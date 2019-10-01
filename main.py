@@ -7,7 +7,7 @@ from stock_data import *
 # main function
 def main():
     # fetch filepath argument
-    extract(sys.argv[1])
+    mindate, maxdate = extract(sys.argv[1])
     # main loop
     while True:
         # fetch the name of the stock to analyze
@@ -39,6 +39,15 @@ def main():
             except:
                 print "Invalid Format, Try again!"
                 date2 = None
+
+        if date1 > date2:
+            print "\nThe dates have been swapped as the first one was greater than the second one\n"
+            date1, date2 = date2, date1
+
+        if date1 and date1 < mindate:
+            date1 = mindate
+        if date2 and date2 < mindate:
+            date2 = mindate
 
         cur_date = date1
 

@@ -41,6 +41,8 @@ def find_mean(vals):
 def find_stdev(mean, vals):
     var = 0
     n = len(vals)
+    if n == 1:
+        return 0
     for x in vals:
         var += (mean-x)**2
     stdev = sqrt(var/(n-1))
